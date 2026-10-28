@@ -93,6 +93,7 @@
 | A2 | Average load | 3 | 1.30 | 372.17 ms | 408.46 ms | 0% | 100% |
 | A3 | Stress | 5 | 2.16 | 377.84 ms | 1,200 ms | 0% | 100% |
 | A4 | Spike | 5 | 1.01 | 361.20 ms | 1,870 ms | 0% | 100% |
+| A5 | Soak | 2 | 0.97 | 379.09 ms | 1,410 ms | 0% | 100% |
 
 ### A2 observations
 - The average load test ran for 3 minutes with up to 3 virtual users.
@@ -123,3 +124,23 @@ The spike test ran for 2 minutes and 20 seconds, with a sudden increase from 1 t
 The maximum response time reached 1.87 seconds, showing that some requests experienced higher latency. However, the overall p(95) remained low.
 
 The aggregate results indicate that the application handled the tested spike without HTTP failures. To confirm recovery after the spike, the response-time trend before, during, and after the spike should be compared in the k6 dashboard.
+
+### A5 — Soak Test Observations
+
+The soak test ran for 11 minutes, including a 10-minute hold at 2 virtual users.
+
+All four performance thresholds passed. The test completed 642 HTTP requests and 214 iterations, with a 0% HTTP failure rate and 100% successful checks (1,070/1,070).
+
+The overall p(95) response time was 379.09 ms, while the homepage and recommendation p(95) values were 318.27 ms and 394.53 ms, respectively.
+
+The results show that the application handled the sustained 2-VU workload without recorded HTTP failures. However, confirming whether response times degraded over the test requires examining the time-series trend in the HTML dashboard.
+
+### Part A — Overall Summary
+
+All five performance tests completed successfully under their configured workloads. The application passed the configured thresholds, with no HTTP request failures and 100% successful checks in every test.
+
+- The stress test achieved the highest throughput at 2.16 requests/sec with 5 VUs. 
+- The spike test recorded the highest individual response time at 1.87 seconds. 
+- The soak test completed 11 minutes without HTTP failures.
+
+These results demonstrate acceptable performance within the tested workloads, but they do not establish the application's maximum capacity or long-term stability beyond the test durations.
