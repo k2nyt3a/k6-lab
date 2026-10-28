@@ -92,6 +92,7 @@
 | A1 | Smoke | 1 | 0.54 | 345.81 ms | 355.85 ms | 0% | 100% |
 | A2 | Average load | 3 | 1.30 | 372.17 ms | 408.46 ms | 0% | 100% |
 | A3 | Stress | 5 | 2.16 | 377.84 ms | 1,200 ms | 0% | 100% |
+| A4 | Spike | 5 | 1.01 | 361.20 ms | 1,870 ms | 0% | 100% |
 
 ### A2 observations
 - The average load test ran for 3 minutes with up to 3 virtual users.
@@ -111,3 +112,14 @@ Compared with A2:
 - p(95) response time increased  from 372.17 ms to 377.84 ms.
 
 The maximum response time reached approximately 1.2 seconds, indicating occasional slower requests. However, the system remained within the configured p(95) performance thresholds at this tested load.
+
+### A4 — Spike Test Observations
+
+The spike test ran for 2 minutes and 20 seconds, with a sudden increase from 1 to 5 virtual users.
+- p(95) response time was 361.20 ms
+- HTTP failure rate was 0%
+- all 240 checks passed.
+
+The maximum response time reached 1.87 seconds, showing that some requests experienced higher latency. However, the overall p(95) remained low.
+
+The aggregate results indicate that the application handled the tested spike without HTTP failures. To confirm recovery after the spike, the response-time trend before, during, and after the spike should be compared in the k6 dashboard.
