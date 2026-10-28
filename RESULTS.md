@@ -37,3 +37,23 @@
     - HTTP request failure rate: 0%
     - Result: FAIL (response time exceeded the threshold)
     - Exit code: 99
+
+- Step 0.7:
+  - Virtual users: 3
+  - Duration: 30 seconds
+  - Original requirements:
+    - p(95) < 1000 ms
+    - p(99) < 1500 ms
+    - HTTP request failure rate < 1%
+  - Original test results:
+    - p(95): 374.12 ms
+    - p(99): 381.45 ms
+    - HTTP request failure rate: 0%
+    - All thresholds passed (PASS)
+  - Modified requirement: Changed p(95) threshold from 1000 ms to 100 ms.
+  - Modified test results:
+    - p(95): 367.14 ms
+    - p(99): 636.68 ms
+    - HTTP request failure rate: 0%
+    - Result: FAIL because p(95) exceeded 100 ms.
+    - Exit code: 99
