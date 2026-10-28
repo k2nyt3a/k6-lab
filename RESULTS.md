@@ -90,3 +90,14 @@
 | Step | Test type | Users | Req/s | p(95) | Max | Failed | Checks |
 |---|---|---|---|---|---|---|---|
 | A1 | Smoke | 1 | 0.54 | 345.81 ms | 355.85 ms | 0% | 100% |
+| A2 | Average load | 3 | 1.30 | 372.17 ms | 408.46 ms | 0% | 100% |
+
+
+### A2 observations
+- The average load test ran for 3 minutes with up to 3 virtual users.
+- All configured performance thresholds passed.
+- The overall p(95) response time was 372.17 ms.
+- The homepage p(95) was 303.64 ms, below the 1000 ms threshold.
+- The recommendation p(95) was 389.99 ms, below the 1500 ms threshold.
+- The HTTP failure rate was 0%, and all checks passed.
+- Earlier attempts encountered an intermittent TypeError in the quotes check. The successful run completed without modifying the original journey code.
