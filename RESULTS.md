@@ -17,3 +17,10 @@
   - Total requests: 3
   - Request rate: 1.602246 requests/second
   - p(95): 298.76 ms
+
+- Step 0.5:
+  - Total requests: 1
+  - Request rate: 0.543606 requests/second
+  - p(95): 265.57 ms
+  - checks_failed......: 0.00%   0 out of 1
+  - API return 401 withput an authorization to token.
