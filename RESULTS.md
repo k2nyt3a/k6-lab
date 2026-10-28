@@ -91,7 +91,7 @@
 |---|---|---|---|---|---|---|---|
 | A1 | Smoke | 1 | 0.54 | 345.81 ms | 355.85 ms | 0% | 100% |
 | A2 | Average load | 3 | 1.30 | 372.17 ms | 408.46 ms | 0% | 100% |
-
+| A3 | Stress | 5 | 2.16 | 377.84 ms | 1,200 ms | 0% | 100% |
 
 ### A2 observations
 - The average load test ran for 3 minutes with up to 3 virtual users.
@@ -101,3 +101,13 @@
 - The recommendation p(95) was 389.99 ms, below the 1500 ms threshold.
 - The HTTP failure rate was 0%, and all checks passed.
 - Earlier attempts encountered an intermittent TypeError in the quotes check. The successful run completed without modifying the original journey code.
+
+### A3 — Stress Test Observations
+
+Use 5 virtual users for a total duration of 3 minutes. All configured thresholds passed, with 0% HTTP failures and 100% successful checks.
+
+Compared with A2:
+- throughput increased from 1.30 to 2.16 requests/sec
+- p(95) response time increased  from 372.17 ms to 377.84 ms.
+
+The maximum response time reached approximately 1.2 seconds, indicating occasional slower requests. However, the system remained within the configured p(95) performance thresholds at this tested load.
