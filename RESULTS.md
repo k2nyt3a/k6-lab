@@ -144,3 +144,65 @@ All five performance tests completed successfully under their configured workloa
 - The soak test completed 11 minutes without HTTP failures.
 
 These results demonstrate acceptable performance within the tested workloads, but they do not establish the application's maximum capacity or long-term stability beyond the test durations.
+
+## Part B: Reflection
+
+### 1. Results Table
+
+| Step | Test type | Users | Req/s | p(95) | Max | Failed | Checks |
+|---|---|---|---|---|---|---|---|
+| A1 | Smoke | 1 | 0.54 | 345.81 ms | 355.85 ms | 0% | 100% |
+| A2 | Average load | 3 | 1.30 | 372.17 ms | 408.46 ms | 0% | 100% |
+| A3 | Stress | 5 | 2.16 | 377.84 ms | 1,200 ms | 0% | 100% |
+| A4 | Spike | 5 | 1.01 | 361.20 ms | 1,870 ms | 0% | 100% |
+| A5 | Soak | 2 | 0.97 | 379.09 ms | 1,410 ms | 0% | 100% |
+
+### 2. In Step 0.2, why was the request rate below 5 requests per second with 5 virtual users?
+
+Becacuse each virtual user execution must wait for the HTTP response and any configured sleep time before starting the next iteration. 
+
+### 3. Did the response time grow from the average-load test to the stress test? Explain your answer with the operational envelope.
+
+- average-load p(95): 372.17 ms 
+- stress-test p(95): 377.84 ms
+
+It increasing only 5.67 ms. This suggests the application was still operating within its tested operational envelope, although we haven't established its maximum capacity.
+
+### 4. In the spike test, how long did the response time take to return to normal after the spike?
+
+It took around 10 seconds to return to normal after the load dropped. There was another short delay later, but no requests failed.
+
+### 5. In the soak test, did the response time or the error rate get worse over time? Name one kind of defect that a soak test of several hours could reveal.
+
+The overall p(95) response time was 379.09 ms. There were a few slower requests, but no clear increase in response time, and the error rate stayed at 0%. A longer soak test could reveal problems like memory leaks.
+
+### 6. Why do the thresholds in this lab use p(95) rather than the average?
+
+Because averages can hide slow requests. p(95) shows how fast 95% of requests finish, so it gives a better picture of the user experience.
+
+### 7. Your results come from a shared public site reached over the internet. Give two reasons why the same tests against a system in a lab could give different numbers.
+
+1. internet speed and network delays can affect response times. 
+2. the public website has other users, while a lab usually has a more controlled workload
+
+### 8. Why must you never run a stress, spike or breakpoint test with hundreds of users against a site that you do not own?
+
+It could overload the website or cause it to crash, affecting real users. Without permission, it could also be considered a DoS attack.
+
+### 9. Write one vague performance requirement for an app you use every day. Rewrite it as a testable requirement, and show the K6 thresholds that check it.
+
+**App:** Instagram
+
+**Vague requirement:** Instagram should load quickly.
+
+**Testable requirement:** With 5 virtual users, 95% of requests should finish within 1 second, the error rate should stay below 1%, and more than 99% of checks should pass.
+
+**k6 thresholds:**
+
+```javascript
+thresholds: {
+  http_req_duration: ['p(95)<1000'],
+  http_req_failed: ['rate<0.01'],
+  checks: ['rate>0.99'],
+}
+```
