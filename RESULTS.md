@@ -84,3 +84,9 @@
     - Result: PASS
   - Explanation:
     - Repeated requests helped expose that the original exclusions were not being respected consistently. After correcting the names, all checks passed. This also demonstrates why HTTP status checks alone are insufficient to validate API behavior.
+
+## Part A results
+
+| Step | Test type | Users | Req/s | p(95) | Max | Failed | Checks |
+|---|---|---|---|---|---|---|---|
+| A1 | Smoke | 1 | 0.54 | 345.81 ms | 355.85 ms | 0% | 100% |
