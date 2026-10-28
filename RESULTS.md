@@ -12,3 +12,8 @@
   - Total requests: 20
   - Request rate: 2.936727 requests/second
   - p(95): 1 s
+
+- Step 0.4:
+  - Total requests: 3
+  - Request rate: 1.602246 requests/second
+  - p(95): 298.76 ms
