@@ -23,4 +23,17 @@
   - Request rate: 0.543606 requests/second
   - p(95): 265.57 ms
   - checks_failed......: 0.00%   0 out of 1
-  - API return 401 withput an authorization to token.
+  - API return 401 without an authorization to token.
+
+- Step 0.6:
+  - Normal run (P95 = 1500 ms):
+    - Measured p(95): 371.86 ms
+    - Checks succeeded: 100%
+    - HTTP request failure rate: 0%
+    - Result: PASS
+  - Strict run (P95 = 300 ms):
+    - Measured p(95): 655.42 ms
+    - Checks succeeded: 100%
+    - HTTP request failure rate: 0%
+    - Result: FAIL (response time exceeded the threshold)
+    - Exit code: 99
