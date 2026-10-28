@@ -57,3 +57,30 @@
     - HTTP request failure rate: 0%
     - Result: FAIL because p(95) exceeded 100 ms.
     - Exit code: 99
+
+- Step 0.8:
+  - Test configuration: 5 VUs for 20 seconds.
+  - Initial test:
+    - HTTP requests: 75
+    - Passed checks: 192/225 (85.33%)
+    - Failed checks: 33/225 (14.66%)
+    - No Pepperoni ingredient: 11 failures
+    - No Knife tool: 22 failures
+    - HTTP request failure rate: 0%
+  - Investigation:
+    - Used `/api/ingredients/topping` and `/api/tools` to inspect the API's valid names.
+    - The API returned "Pepperoni" and "Knife".
+  - Root cause:
+    - The original request used lowercase values ("pepperoni" and "knife"), which did not match the API's names.
+  - Fix:
+    - Changed `["pepperoni"]` to `["Pepperoni"]`.
+    - Changed `["knife"]` to `["Knife"]`.
+  - Final test:
+    - HTTP requests: 75
+    - Passed checks: 225/225 (100%)
+    - Failed checks: 0
+    - HTTP request failure rate: 0%
+    - p(95): 383.46 ms
+    - Result: PASS
+  - Explanation:
+    - Repeated requests helped expose that the original exclusions were not being respected consistently. After correcting the names, all checks passed. This also demonstrates why HTTP status checks alone are insufficient to validate API behavior.
